@@ -1,6 +1,6 @@
 package com.App.WeatherApplication.Model;
 
-public class CityDetails {
+public class InputModel {
 private String city;
 private String country;
 private String scale;

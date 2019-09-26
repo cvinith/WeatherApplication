@@ -60,19 +60,19 @@
 <body>
 	<div id="parent">
 		<div id="child1">
-			<p id="city">${jsonObject.getString("name")},${jsonObject.getJSONObject("sys").get("country")}</p>
-            <p id="description" >${jsonObject.getJSONArray("weather").getJSONObject(0).getString("description")}</p>
+			<p id="city">${outputModel.jsonObject.getString("name")},${jsonObject.getJSONObject("sys").get("country")}</p>
+            <p id="description" >${outputModel.jsonObject.getJSONArray("weather").getJSONObject(0).getString("description")}</p>
 		</div>
 		<div id="pic" class="child2">
-			<img src=${src}>
+			<img src=${outputModel.src}>
 		</div>
 		<div id="temp" class="child2">
-			<span>${temperature}</span>
+			<span>${outputModel.temperature}</span>
 		</div>
 		<div id="phw" class="child2">
-			<p>Precipitation&nbsp;:&nbsp;${jsonObject.getJSONObject("main").getDouble("pressure")}<p>
-			<p>Humidity&nbsp;:&nbsp;${jsonObject.getJSONObject("main").getDouble("humidity")}%</p>
-			<p>Wind&nbsp;:&nbsp;24&nbsp;${jsonObject.getJSONObject("wind").getDouble("speed")}Km/h</p>	
+			<p>Precipitation&nbsp;:&nbsp;${outputModel.jsonObject.getJSONObject("main").getDouble("pressure")}<p>
+			<p>Humidity&nbsp;:&nbsp;${outputModel.jsonObject.getJSONObject("main").getDouble("humidity")}%</p>
+			<p>Wind&nbsp;:&nbsp;24&nbsp;${outputModel.jsonObject.getJSONObject("wind").getDouble("speed")}Km/h</p>	
 		</div>
 	</div>
 

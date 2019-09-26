@@ -2,47 +2,30 @@ package com.App.WeatherApplication.Service;
 
 
 
+
 import org.json.JSONObject;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.App.WeatherApplication.Model.CityDetails;
-import com.App.WeatherApplictaion.Client.ClientClass;
+import com.App.WeatherApplication.Client.ClientClass;
+import com.App.WeatherApplication.Model.InputModel;
+import com.App.WeatherApplication.Model.OutputModel;
 
+@Service
 public class ServiceClass {
-	Double temperature;
-	int temp;
-	public int getTemp() {
-		return temp;
-	}
+	@Autowired
+	OutputModel outputModel;
+	@Autowired
+	ClientClass clientClass;
 
-	public void setTemp(int temp) {
-		this.temp = temp;
-	}
 
-	public Double getTemperature() {
-		return temperature;
-	}
-	
-	public void setTemperature(Double temperature) {
-		this.temperature = temperature;
-	}
-	public ModelAndView  getData(CityDetails cityDetails) {
-		ModelAndView modelAndView=new ModelAndView("weatherDisplay");
-		ClientClass clientClass=new ClientClass();
+	public OutputModel  getData(InputModel cityDetails) {
 		String data=clientClass.getWeatherJSONdata(cityDetails);
 		JSONObject jsonObject =new JSONObject(data);
-		if(cityDetails.getScale().equals("farenhiet")) {
-			temperature=(jsonObject.getJSONObject("main").getDouble("temp") *9/5) - 459.67;
-		    temp=(int) Math.round(temperature);
-		}
-		else {
-			temperature=jsonObject.getJSONObject("main").getDouble("temp")-273.15;
-			temp=(int) Math.round(temperature);
-		}
-		modelAndView.addObject("temperature",temp);
-		modelAndView.addObject("jsonObject", jsonObject);
-		modelAndView.addObject("src", "http://openweathermap.org/img/wn/"+jsonObject.getJSONArray("weather").getJSONObject(0).getString("icon")+"@2x.png");
-		return modelAndView;
+	    outputModel.setTemperature((int) Math.round((jsonObject.getJSONObject("main").getDouble("temp"))));
+	    outputModel.setJsonObject(jsonObject);
+	    outputModel.setSrc("http://openweathermap.org/img/wn/"+jsonObject.getJSONArray("weather").getJSONObject(0).getString("icon")+"@2x.png");
+		return outputModel;
 	}
 
 }
